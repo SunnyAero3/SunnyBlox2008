@@ -7,6 +7,8 @@ Stage: Alpha
 
 https://sunnyaero3.github.io/SunnyBlox2008/
 
+https://sunnyaero3.github.io/blog.sunnyblox2008/ also exists but in another respository https://github.com/SunnyAero3/blog.sunnyblox2008/tree/main
+
 Tuesday march 31: went from Pre-Alpha to Alpha
 
 Pre-Alpha focused on making the website look like old roblox.
