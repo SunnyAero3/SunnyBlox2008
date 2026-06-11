@@ -1,225 +1,459 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" id="www-roblox-com">
-    <!-- MachineID: App2 -->
-	<head><link rel="stylesheet" href="ALLCSS.css"><title>
-	ROBLOX: A FREE Virtual World-Building Game with Avatar Chat, 3D Environments, and Physics
-</title><link id="ctl00_Imports" rel="stylesheet" type="text/css" href="CSS/AllCSS.ashx" /><link id="ctl00_Favicon" rel="Shortcut Icon" type="image/ico" href="favicon.ico" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="Content-Language" content="en-us" /><meta name="author" content="ROBLOX Corporation" /><meta name="description" content="ROBLOX is SAFE for kids! ROBLOX is a FREE casual virtual world with fully constructible/desctructible 3D environments and immersive physics. Build, battle, chat, or just hang out." /><meta name="keywords" content="game, video game, building game, construction game, online game, LEGO game, LEGO, MMO, MMORPG, rowblocks, rowbloks, roblocks, robloks, roblocs, roblok" /></head>
-	<body>
-		<form name="aspnetForm" method="post" action="Default.aspx" id="aspnetForm">
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMjAwNjY3MDU3Ng9kFgJmD2QWAgIBD2QWBgIHDw8WBh4ISW1hZ2VVcmwFGH4vaW1hZ2VzL3JvYmxveF9sb2dvLnBuZx4LQ29tbWFuZE5hbWVlHg9Db21tYW5kQXJndW1lbnRkZGQCCQ9kFgJmD2QWAgIBD2QWAgIBD2QWBGYPDxYGHwAFF34vaW1hZ2VzL0Jhbm5lclBsYXkucG5nHwFlHwJkZGQCAg8PFgIeB1Zpc2libGVoZBYGAgEPDxYCHwNoZGQCAw8PFgIfA2hkZAIFDw8WAh8DaGRkAg0PZBYEAgMPZBYCAgIPZBYCZg9kFgICARBkZBYCZg9kFgICCQ8QDxYCHgdDaGVja2VkZ2RkZGQCBQ9kFgJmD2QWAgIBDw8WBh8ABRx+L2ltYWdlcy9OZXdGcm9udFBhZ2VHdXkucG5nHwFlHwJkZGQYAQUjY3RsMDAkcmJ4R29vZ2xlQW5hbHl0aWNzJE11bHRpVmlldzEPD2RmZHHY+j+dI0sbFeWiuWd97VbS97a+" />
+<head>
+  <title>ROBLOX: A FREE Virtual World-Building Game with Avatar Chat, 3D Environments, and Physics</title>
+  <link rel="stylesheet" type="text/css" href="CSS/AllCSS.ashx" />
+  <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-us" />
+  <meta name="author" content="ROBLOX Corporation" />
+  <meta name="description" content="ROBLOX is SAFE for kids! ROBLOX is a FREE casual virtual world with fully constructible/destructible 3D environments and immersive physics. Build, battle, chat, or just hang out." />
+  <meta name="keywords" content="game, video game, building game, construction game, online game, LEGO game, LEGO, MMO, MMORPG, roblox" />
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="/ScriptResource.axd?d=HXgoHdDgvXS1Bm1BtuI8XHJX8FVI8cYZ2X_EuVPYghNhT6sQZsT7p4eJkks-IyPzsTfEjdo0cSkJ_kKtErHTouTUQOFPTCdHx5vx8QsFQjg1&amp;t=633374548331875000" type="text/javascript"></script>
-<script src="/ScriptResource.axd?d=ATCcKHzcXjy4pmYkne899yDwUSEj0qYTzcSbU_oYpFGHx7ZGe7Ic-DpCoQ9vByq10&amp;t=633512963190312500" type="text/javascript"></script>
-<script src="/ScriptResource.axd?d=GJp30YCTLN52ZxTqwfqvW7VeBzdJztmikwWeutwX8Q2en1AKX_lGEKgTu0H2E7Ao0&amp;t=633512963203281250" type="text/javascript"></script>
-<script src="/ScriptResource.axd?d=GJp30YCTLN52ZxTqwfqvW83WM1AO3eFNyAa9ZrDCQZHEC2jfCjNeYvLgc1S0PHML0&amp;t=633512963203281250" type="text/javascript"></script>
-<script src="Thumbs/Asset.asmx/js" type="text/javascript"></script>
-            
-			<div id="Container">
-			    
-                    
-<div id="AdvertisingLeaderboard">
-    <script type="text/javascript"><!--
-        google_ad_client = "pub-2247123265392502";
-        /* Old Banner */
-        google_ad_slot = "8001698703";
-        google_ad_width = 728;
-        google_ad_height = 90;
-        //-->
-    </script>
-    <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-</div>
+  <style>
+    /* ── Avatar renderer ── */
+    #avatar-canvas {
+      position: relative;
+      width: 60px;
+      height: 80px;
+      display: inline-block;
+    }
+    #avatar-canvas img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      image-rendering: pixelated;
+    }
 
-       			
-				<div id="Header">
-					<div id="Banner">
-						
-						        
+    /* ── Cool places placeholder cells ── */
+    /* .UserPlace in ALLCSS: height:70px; width:120px; margin:0 10px; */
+    .place-placeholder {
+      display: block;
+      width: 120px;
+      height: 70px;
+      background: #c8c8c8;
+      border: 1px solid #888;
+      box-sizing: border-box;
+      line-height: 70px;
+      font-size: 9px;
+      color: #444;
+      text-align: center;
+      font-family: Verdana, sans-serif;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    /* kill default td padding/spacing that breaks the row */
+    #UserPlaces_Content table { border-collapse: collapse; }
+    #UserPlaces_Content td.UserPlace { padding: 0; vertical-align: top; }
 
-<div id="Options">
-	<div id="Authentication">
-		<span><a id="ctl00_BannerOptionsLoginView_BannerOptions_Anonymous_LoginHyperLink" href="Login/Default.html">Login</a></span>
-	</div>
-	<div id="Settings"></div>
-</div>
-						    
-						<div id="Logo">
-						    <a id="ctl00_rbxImage_Logo" title="ROBLOX" href="/" style="display:inline-block;cursor:pointer;"><img src="images/roblox_logo.png" border="0" alt="ROBLOX" blankUrl="http://t6.roblox.com:80/blank-224x59.gif" /></a>
-						</div>
-						
-						        
+    /* ── YouTube embed ── */
+    #Showcase iframe {
+      display: block;
+      border: none;
+    }
 
-<div id="Alerts">
-    <table style="width:100%;height:100%">
-        <tr>
-            <td valign="middle"><a id="ctl00_BannerAlertsLoginView_BannerAlerts_Anonymous_rbxAlerts_SignupAndPlayHyperLink" class="SignUpAndPlay" Text="Sign-up and Play!" href="/Login/New.html?ReturnUrl=%2fGames.html" style="display:inline-block;cursor:pointer;"><img src="images/BannerPlay.png" border="0" blankUrl="http://t1.roblox.com:80/blank-210x40.gif" /></a>
+    /* ── Logged-in state (hidden by default) ── */
+    #LoggedInView { display: none; }
+    #LoggedOutView { display: block; }
+  </style>
+</head>
+<body>
 
-</td>
-        </tr>
-    </table>
-</div>
-						    
-					</div>
-					
+<div id="Container">
 
-<div class="Navigation">
-	<span><a id="ctl00_Menu_hlMyRoblox" class="MenuItem" href="User.html">My ROBLOX</a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-	<span><a id="ctl00_Menu_hlGames" class="MenuItem" href="Games.html">Games</a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-	<span><a id="ctl00_Menu_hlCatalog" class="MenuItem" href="Catalog.html">Catalog</a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-	<span><a id="ctl00_Menu_hlBrowse" class="MenuItem" href="Browse.html">People</a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-    <span><a id="ctl00_Menu_hlBuildersClub" class="MenuItem" href="Upgrades/BuildersClub.html">Builders Club</a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-	<span><a id="ctl00_Menu_hlForum" class="MenuItem" href="Forum/Default.html">Forum</a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-	<span><a id="ctl00_Menu_hlNews" class="MenuItem" href="https://sunnyaero3.github.io/blog.sunnyblox2008/" target="_blank">News</a>&nbsp;<a id="ctl00_Menu_hlNewsFeed" href="http://blog.roblox.com/?feed=rss"><img src="images/feed-icons/feed-icon-14x14.png" alt="RSS" border="0" /></a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-	<span><a id="ctl00_Menu_hlParents" class="MenuItem" href="Parents.html">Parents</a></span>
-	<span class="Separator">&nbsp;|&nbsp;</span>
-	<span><a id="ctl00_Menu_hlHelp" class="MenuItem" href="http://wiki.roblox.com/" target="_blank">Help</a></span>
-</div>
-				</div>
-				<div id="Body">
-					
-    
-	<div id="SplashContainer">
-		<div id="SignInPane">
-			
-<div id="LoginViewContainer">
-	
-			<div id="LoginView">
-				<h5>Member Login</h5>
-				
-<div class="AspNet-Login">
-						<div class="AspNet-Login">
-							<div class="AspNet-Login-UserPanel">
-								<label for="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_UserName" id="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_UserNameLabel" class="Label">Character Name</label>
-								<input name="ctl00$cphRoblox$rbxLoginView$lvLoginView$lSignIn$UserName" type="text" id="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_UserName" tabindex="1" class="Text" />
-							</div>
-							<div class="AspNet-Login-PasswordPanel">
-								<label for="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_Password" id="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_PasswordLabel" class="Label">Password</label>
-								<input name="ctl00$cphRoblox$rbxLoginView$lvLoginView$lSignIn$Password" type="password" id="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_Password" tabindex="2" class="Text" />
-							</div>
-							<!--div class="AspNet-Login-RememberMePanel"-->
-								
-							<!--/div-->
-							<div class="AspNet-Login-SubmitPanel">
-								<a id="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_Login" tabindex="4" class="Button" href="javascript:__doPostBack('ctl00$cphRoblox$rbxLoginView$lvLoginView$lSignIn$Login','')">Login</a>
-							</div>
-							<div class="AspNet-Login-PasswordRecoveryPanel">
-								<a id="ctl00_cphRoblox_rbxLoginView_lvLoginView_lSignIn_hlPasswordRecovery" tabindex="5" href="Login/ResetPasswordRequest.aspx">Forgot your password?</a>
-							</div>
-						</div>
-					
-</div>
-			</div>
-		
-</div>
+  <!-- ═══════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════ -->
+  <div id="Header">
+    <div id="Banner">
 
-			<br />
-            
-				    <div id="Figure">
-				        <a id="ctl00_cphRoblox_LoginView1_ImageFigure" disabled="disabled" title="Figure" onclick="return false" style="display:inline-block;"><img src="images/NewFrontPageGuy.png" border="0" alt="Figure" blankUrl="http://t1.roblox.com:80/blank-115x130.gif" /></a>
-				    </div>
-			    
-		</div>
-		
-		        
+      <div id="Options">
+        <div id="Authentication">
+          <!-- Logged out -->
+          <span id="LoggedOutView">
+            <a href="Login/Default.html">Login</a>
+          </span>
+          <!-- Logged in — populated by JS -->
+          <span id="LoggedInView">
+            Welcome, <strong id="UsernameDisplay"></strong>!
+            &nbsp;|&nbsp;
+            <span id="RobuxDisplay" style="color:#090"></span> Robux
+            &nbsp;|&nbsp;
+            <a href="javascript:void(0)" onclick="signOut()">Sign out</a>
+          </span>
+        </div>
+        <div id="Settings"></div>
+      </div>
 
-<div id="RobloxAtAGlance">
-	<h2>ROBLOX Virtual Playworld</h2>
-	<h3>ROBLOX is Free!</h3>
-	<ul id="ThingsToDo">
-		<li id="Point1">
-			<h3>Build your personal Place</h3>
-			<div>Create buildings, vehicles, scenery, and traps with thousands of virtual bricks.</div>
-		</li>
-		<li id="Point2">
-			<h3>Meet new friends online</h3>
-			<div>Visit your friend's place, chat in 3D, and build together.</div>
-		</li>
-		<li id="Point3">
-			<h3>Battle in the Brick Arenas</h3>
-			<div>Play with the slingshot, rocket, or other brick battle tools.  Be careful not to get "bloxxed".</div>
-		</li>
-	</ul>
-	<div id="Showcase" onload="MM_CheckFlashVersion('8,0,0,0','Content on this page requires a newer version of Macromedia Flash Player. Do you want to download it now?');">
-        <object type="application/x-shockwave-flash" data="PlayTrailer.swf" width="400" height="326">
-            <param name="movie" value="PlayTrailer.swf" />
-            <img src="images/noflash.gif" width="400" height="326" alt="Build It..." />
-        </object>
+      <div id="Logo">
+        <a href="/" title="ROBLOX" style="display:inline-block;cursor:pointer;">
+          <img src="images/roblox_logo.png" border="0" alt="ROBLOX" />
+        </a>
+      </div>
+
+      <div id="Alerts">
+        <table style="width:100%;height:100%">
+          <tr>
+            <td valign="middle">
+              <a class="SignUpAndPlay" href="/Login/New.html?ReturnUrl=%2fGames.html" style="display:inline-block;cursor:pointer;">
+                <img src="images/BannerPlay.png" border="0" alt="Sign-up and Play!" />
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div><!-- /Banner -->
+
+    <div class="Navigation">
+      <span><a class="MenuItem" href="User.html">My ROBLOX</a></span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span><a class="MenuItem" href="Games.html">Games</a></span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span><a class="MenuItem" href="Catalog.html">Catalog</a></span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span><a class="MenuItem" href="Browse.html">People</a></span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span><a class="MenuItem" href="Upgrades/BuildersClub.html">Builders Club</a></span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span><a class="MenuItem" href="Forum/Default.html">Forum</a></span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span>
+        <a class="MenuItem" href="https://sunnyaero3.github.io/blog.sunnyblox2008/" target="_blank">News</a>
+        &nbsp;<a href="http://blog.roblox.com/?feed=rss"><img src="images/feed-icons/feed-icon-14x14.png" alt="RSS" border="0" /></a>
+      </span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span><a class="MenuItem" href="Parents.html">Parents</a></span>
+      <span class="Separator">&nbsp;|&nbsp;</span>
+      <span><a class="MenuItem" href="http://wiki.roblox.com/" target="_blank">Help</a></span>
     </div>
-	<div id="Install">
-		<div id="CompatibilityNote">Works with your<br />Windows PC!</div>
-		<div id="DownloadAndPlay"><a id="ctl00_cphRoblox_RobloxAtAGlanceLoginView_RobloxAtAGlance_Anonymous_hlDownloadAndPlay" href="Login/New.aspx?ReturnUrl=%2fGames.aspx"><img src="images/DownloadAndPlay.png" alt="FREE - Download and Play!" border="0" /></a></div>
-	</div>
-	<div id="ForParents">
-		<a id="ctl00_cphRoblox_RobloxAtAGlanceLoginView_RobloxAtAGlance_Anonymous_hlKidSafe" title="ROBLOX is kid-safe!" href="Parents.aspx" style="display:inline-block;"><img title="ROBLOX is kid-safe!" src="images/COPPASeal-125x125.jpg" border="0" /></a>
-	</div>
-</div>
-		    
-		
-<div id="UserPlacesPane">
-	<div id="UserPlaces_Content">
-		<table id="ctl00_cphRoblox_CoolPlaces_CoolPlacesDataList" cellspacing="0" border="0" width="100%">
-	<tr>
-		<td class="UserPlace">
-				<a id="ctl00_cphRoblox_CoolPlaces_CoolPlacesDataList_ctl00_rbxContentImage" title="Can you survive a Flash Flood?" href="/Item.aspx?ID=456398" style="display:inline-block;cursor:pointer;"><img src="http://t3.roblox.com:80/b148bf915e11a6a0c1be22c6abcf032f" border="0" alt="Can you survive a Flash Flood?" /></a>
-			</td><td class="UserPlace">
-				<a id="ctl00_cphRoblox_CoolPlaces_CoolPlacesDataList_ctl01_rbxContentImage" title="be a prisoner or a cop have a life in jail! fixed" href="/Item.aspx?ID=2170968" style="display:inline-block;cursor:pointer;"><img src="http://t2.roblox.com:80/2c195ce28a2ea76a63789f48c1dbffbe" border="0" alt="be a prisoner or a cop have a life in jail! fixed" /></a>
-			</td><td class="UserPlace">
-				<a id="ctl00_cphRoblox_CoolPlaces_CoolPlacesDataList_ctl02_rbxContentImage" title="Build your armor and weapons *roof* *60k visits*" href="/Item.aspx?ID=1801900" style="display:inline-block;cursor:pointer;"><img src="http://t1.roblox.com:80/7634d01d337887186b3af2227d618ab5" border="0" alt="Build your armor and weapons *roof* *60k visits*" /></a>
-			</td><td class="UserPlace">
-				<a id="ctl00_cphRoblox_CoolPlaces_CoolPlacesDataList_ctl03_rbxContentImage" title="Avatar: Air Nomad Legends" href="/Item.aspx?ID=199135" style="display:inline-block;cursor:pointer;"><img src="http://t1.roblox.com:80/3ae17c671f5c0bf901a27e648f9b23af" border="0" alt="Avatar: Air Nomad Legends" /></a>
-			</td><td class="UserPlace">
-				<a id="ctl00_cphRoblox_CoolPlaces_CoolPlacesDataList_ctl04_rbxContentImage" title="✪Ultimate Paintball CTF" href="/Item.aspx?ID=47828" style="display:inline-block;cursor:pointer;"><img src="http://t5.roblox.com:80/bf1fb219ebfeec2521a5a6fbc588a483" border="0" alt="✪Ultimate Paintball CTF" /></a>
-			</td>
-	</tr>
-</table>
-	</div>
-	<div id="UserPlaces_Header">
-		<h3>Cool Places</h3>
-		<p>Check out some of our favorite ROBLOX places!</p>
-	</div>
-	<div id="ctl00_cphRoblox_CoolPlaces_ie6_peekaboo" style="clear: both"></div>
-</div>
-	</div>
 
-				</div>
-				
+  </div><!-- /Header -->
 
-<div id="Footer">
+  <!-- ═══════════════════════════════════════════
+       BODY
+  ═══════════════════════════════════════════ -->
+  <div id="Body">
+    <div id="SplashContainer">
+
+      <!-- ── Login pane ── -->
+      <div id="SignInPane">
+        <div id="LoginViewContainer">
+          <div id="LoginView">
+            <h5>Member Login</h5>
+            <div class="AspNet-Login">
+              <div class="AspNet-Login-UserPanel">
+                <label class="Label" for="UserName">Character Name</label>
+                <input type="text" id="UserName" tabindex="1" class="Text" />
+              </div>
+              <div class="AspNet-Login-PasswordPanel">
+                <label class="Label" for="Password">Password</label>
+                <input type="password" id="Password" tabindex="2" class="Text" />
+              </div>
+              <div class="AspNet-Login-SubmitPanel">
+                <a id="LoginButton" tabindex="4" class="Button" href="javascript:void(0)" onclick="doLogin()">Login</a>
+              </div>
+              <div class="AspNet-Login-PasswordRecoveryPanel">
+                <a href="Login/ResetPasswordRequest.aspx">Forgot your password?</a>
+              </div>
+              <div id="LoginError" style="color:red;font-size:11px;margin-top:4px;display:none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <!-- Avatar figure — renders logged-in user's avatar, falls back to default guy -->
+        <div id="Figure">
+          <div id="AvatarRender">
+            <!-- Layered avatar renderer -->
+            <div id="avatar-canvas">
+              <!-- Body color base -->
+              <canvas id="avatarBodyCanvas" width="60" height="80" style="position:absolute;top:0;left:0;"></canvas>
+              <!-- Clothing layers stacked on top -->
+              <img id="avatarLayerFace"  src="" alt="" style="display:none;" />
+              <img id="avatarLayerShirt" src="" alt="" style="display:none;" />
+              <img id="avatarLayerPants" src="" alt="" style="display:none;" />
+              <img id="avatarLayerHat"   src="" alt="" style="display:none;" />
+            </div>
+            <!-- Fallback to static image if no session -->
+            <img id="avatarFallback" src="images/NewFrontPageGuy.png" border="0" alt="Figure" />
+          </div>
+        </div>
+
+      </div><!-- /SignInPane -->
+
+      <!-- ── ROBLOX at a glance ── -->
+      <div id="RobloxAtAGlance">
+        <h2>ROBLOX Virtual Playworld</h2>
+        <h3>ROBLOX is Free!</h3>
+        <ul id="ThingsToDo">
+          <li id="Point1">
+            <h3>Build your personal Place</h3>
+            <div>Create buildings, vehicles, scenery, and traps with thousands of virtual bricks.</div>
+          </li>
+          <li id="Point2">
+            <h3>Meet new friends online</h3>
+            <div>Visit your friend's place, chat in 3D, and build together.</div>
+          </li>
+          <li id="Point3">
+            <h3>Battle in the Brick Arenas</h3>
+            <div>Play with the slingshot, rocket, or other brick battle tools. Be careful not to get "bloxxed".</div>
+          </li>
+        </ul>
+
+        <!-- YouTube embed replacing old Flash trailer -->
+        <div id="Showcase">
+          <iframe
+            width="400"
+            height="326"
+            src="https://www.youtube.com/embed/LTnMKjXEnMY"
+            title="ROBLOX Trailer"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div id="Install">
+          <div id="CompatibilityNote">Works with your<br />Windows PC!</div>
+          <div id="DownloadAndPlay">
+            <a href="Login/New.aspx?ReturnUrl=%2fGames.aspx">
+              <img src="images/DownloadAndPlay.png" alt="FREE - Download and Play!" border="0" />
+            </a>
+          </div>
+        </div>
+
+        <div id="ForParents">
+          <a title="ROBLOX is kid-safe!" href="Parents.aspx" style="display:inline-block;">
+            <img title="ROBLOX is kid-safe!" src="images/COPPASeal-125x125.jpg" border="0" />
+          </a>
+        </div>
+      </div><!-- /RobloxAtAGlance -->
+
+      <!-- ── Cool Places ── -->
+      <div id="UserPlacesPane">
+        <div id="UserPlaces_Header">
+          <h3>Cool Places</h3>
+          <p>Check out some of our favorite ROBLOX places!</p>
+        </div>
+        <div id="UserPlaces_Content">
+          <table id="CoolPlacesDataList" cellspacing="0" border="0" width="100%">
+            <tr id="coolPlacesRow">
+              <!-- Populated by JS from Supabase games table.
+                   Falls back to these placeholders if DB is empty or not yet connected. -->
+              <td class="UserPlace">
+                <a href="/Games.html" style="display:inline-block;cursor:pointer;">
+                  <div class="place-placeholder">Loading...</div>
+                </a>
+              </td>
+              <td class="UserPlace">
+                <a href="/Games.html" style="display:inline-block;cursor:pointer;">
+                  <div class="place-placeholder">Loading...</div>
+                </a>
+              </td>
+              <td class="UserPlace">
+                <a href="/Games.html" style="display:inline-block;cursor:pointer;">
+                  <div class="place-placeholder">Loading...</div>
+                </a>
+              </td>
+              <td class="UserPlace">
+                <a href="/Games.html" style="display:inline-block;cursor:pointer;">
+                  <div class="place-placeholder">Loading...</div>
+                </a>
+              </td>
+              <td class="UserPlace">
+                <a href="/Games.html" style="display:inline-block;cursor:pointer;">
+                  <div class="place-placeholder">Loading...</div>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div style="clear:both;"></div>
+      </div><!-- /UserPlacesPane -->
+
+    </div><!-- /SplashContainer -->
+  </div><!-- /Body -->
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <div id="Footer">
     <hr />
     <p class="Legalese">
-        ROBLOX, "Online Building Toy", characters, logos, names, and all related indicia are trademarks of <a id="ctl00_rbxFooter_hlRobloxCorporation" href="info/About.aspx">ROBLOX Corporation</a>, ©2008. Patents pending.
-        <br />ROBLOX Corp. is not affiliated with Lego, MegaBloks, Bionicle, Pokemon, Nintendo, Lincoln Logs, Yu Gi Oh, K'nex, Tinkertoys, Erector Set, or the Pirates of the Caribbean. ARrrr!
-        <br />Use of this site signifies your acceptance of the <a id="ctl00_rbxFooter_hlTermsOfService" href="info/TermsOfService.aspx">Terms and Conditions</a>.
-        <br /><a id="ctl00_rbxFooter_hlPrivacyPolicy" href="info/Privacy.html">Privacy Policy</a>
-        &nbsp;|&nbsp; <a href="mailto:info@roblox.com">Contact Us</a>
-        &nbsp;|&nbsp; <a id="ctl00_rbxFooter_hlAboutRoblox" href="info/About.html">About Us</a>
-        &nbsp;|&nbsp; <a id="ctl00_rbxFooter_HyperLink1" href="info/Jobs.html">Jobs</a>
+      ROBLOX, "Online Building Toy", characters, logos, names, and all related indicia are trademarks of
+      <a href="info/About.aspx">ROBLOX Corporation</a>, ©2008. Patents pending.
+      <br />ROBLOX Corp. is not affiliated with Lego, MegaBloks, Bionicle, Pokemon, Nintendo, Lincoln Logs, Yu Gi Oh, K'nex, Tinkertoys, Erector Set, or the Pirates of the Caribbean. ARrrr!
+      <br />Use of this site signifies your acceptance of the <a href="info/TermsOfService.aspx">Terms and Conditions</a>.
+      <br /><a href="info/Privacy.html">Privacy Policy</a>
+      &nbsp;|&nbsp; <a href="mailto:info@roblox.com">Contact Us</a>
+      &nbsp;|&nbsp; <a href="info/About.html">About Us</a>
+      &nbsp;|&nbsp; <a href="info/Jobs.html">Jobs</a>
     </p>
-</div>
-			</div>
-            
-			
-        <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
-        <script type="text/javascript">_uacct="UA-486632-1"; _udn="roblox.com"; urchinTracker(); __utmSetVar('Visitor/Anonymous');</script>
-    
-            
-		
-<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBAKj1Of9CQKm1PjrDgLE+cmuDgLN3e/IDw7Ix3ZauI6JjTz0eO1gYzOVEfqD" />
+  </div>
 
-<script type="text/javascript">
-//<![CDATA[
-if (new Date() > new Date('8/7/2008 10:21:08 AM')){alert('Your system time is incorrect') };__utmSetVar('Ads/Banner');Roblox.Controls.Image.IE6Hack($get('ctl00_rbxImage_Logo'));Roblox.Controls.Image.IE6Hack($get('ctl00_BannerAlertsLoginView_BannerAlerts_Anonymous_rbxAlerts_SignupAndPlayHyperLink'));Roblox.Controls.Image.IE6Hack($get('ctl00_cphRoblox_LoginView1_ImageFigure'));Sys.Application.initialize();
-//]]>
+</div><!-- /Container -->
+
+<!-- ═══════════════════════════════════════════
+     SUPABASE + AUTH + AVATAR + COOL PLACES
+═══════════════════════════════════════════ -->
+<script>
+// ── CONFIG — replace with your project values ──────────────────────────────
+const SUPABASE_URL  = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON = 'YOUR_ANON_KEY';
+// ───────────────────────────────────────────────────────────────────────────
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ── LOGIN ──────────────────────────────────────────────────────────────────
+async function doLogin() {
+  const username = document.getElementById('UserName').value.trim();
+  const password = document.getElementById('Password').value;
+  const errEl    = document.getElementById('LoginError');
+  errEl.style.display = 'none';
+
+  // Supabase auth uses email; store email = username@yourdomain.com OR
+  // store a mapping table. Simplest: use email field directly.
+  // Adjust the domain or lookup logic to match your users table.
+  const email = username.includes('@') ? username : username + '@robloxrevival.local';
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = 'Wrong username or password.';
+    errEl.style.display = 'block';
+    return;
+  }
+  await onSession(data.session);
+}
+
+async function signOut() {
+  await sb.auth.signOut();
+  document.getElementById('LoggedInView').style.display  = 'none';
+  document.getElementById('LoggedOutView').style.display = 'block';
+  document.getElementById('avatarFallback').style.display = 'block';
+  document.getElementById('avatar-canvas').style.display  = 'none';
+}
+
+// ── SESSION RESTORE ────────────────────────────────────────────────────────
+async function onSession(session) {
+  if (!session) return;
+
+  // Fetch user profile from your `users` table
+  const { data: profile } = await sb
+    .from('users')
+    .select('username, robux, body_color, face_item_id, shirt_item_id, pants_item_id, hat_item_id')
+    .eq('id', session.user.id)
+    .single();
+
+  if (!profile) return;
+
+  // Show logged-in nav
+  document.getElementById('LoggedOutView').style.display  = 'none';
+  document.getElementById('LoggedInView').style.display   = 'inline';
+  document.getElementById('UsernameDisplay').textContent  = profile.username;
+  document.getElementById('RobuxDisplay').textContent     = profile.robux.toLocaleString();
+
+  // Render avatar
+  renderAvatar(profile);
+}
+
+// ── AVATAR RENDERER ────────────────────────────────────────────────────────
+// Layers: body color canvas → face → shirt → pants → hat
+// Each clothing item's image URL is fetched from the catalog/storage bucket.
+async function renderAvatar(profile) {
+  // Draw body color on canvas
+  const canvas = document.getElementById('avatarBodyCanvas');
+  const ctx    = canvas.getContext('2d');
+  ctx.fillStyle = profile.body_color || '#FFCC99'; // default skin tone
+  // Simple blocky R6-style silhouette
+  ctx.fillRect(20, 0,  20, 20); // head
+  ctx.fillRect(18, 20, 24, 28); // torso
+  ctx.fillRect(14, 20,  8, 28); // left arm
+  ctx.fillRect(38, 20,  8, 28); // right arm
+  ctx.fillRect(18, 48, 10, 28); // left leg
+  ctx.fillRect(32, 48, 10, 28); // right leg
+
+  // Layer clothing images if items exist
+  const layers = [
+    { id: profile.face_item_id,  el: 'avatarLayerFace'  },
+    { id: profile.shirt_item_id, el: 'avatarLayerShirt' },
+    { id: profile.pants_item_id, el: 'avatarLayerPants' },
+    { id: profile.hat_item_id,   el: 'avatarLayerHat'   },
+  ];
+
+  for (const layer of layers) {
+    if (!layer.id) continue;
+    const { data: item } = await sb
+      .from('catalog')
+      .select('asset_url')
+      .eq('id', layer.id)
+      .single();
+    if (!item) continue;
+    const img = document.getElementById(layer.el);
+    img.src             = item.asset_url;
+    img.style.display   = 'block';
+  }
+
+  // Show canvas, hide fallback
+  document.getElementById('avatar-canvas').style.display  = 'block';
+  document.getElementById('avatarFallback').style.display = 'none';
+}
+
+// ── COOL PLACES ───────────────────────────────────────────────────────────
+async function loadCoolPlaces() {
+  const { data: games, error } = await sb
+    .from('games')
+    .select('id, title, thumbnail_url')
+    .order('visits', { ascending: false })
+    .limit(5);
+
+  if (error || !games || games.length === 0) return; // keep placeholders
+
+  const row = document.getElementById('coolPlacesRow');
+  row.innerHTML = '';
+
+  games.forEach(game => {
+    const td  = document.createElement('td');
+    td.className = 'UserPlace';
+
+    const hasThumb = game.thumbnail_url && game.thumbnail_url.trim() !== '';
+
+    td.innerHTML = `
+      <a href="/Item.aspx?ID=${game.id}" title="${escHtml(game.title)}"
+         style="display:inline-block;cursor:pointer;">
+        ${hasThumb
+          ? `<img src="${escHtml(game.thumbnail_url)}" border="0"
+                  alt="${escHtml(game.title)}" width="120" height="70"
+                  style="display:block;" />`
+          : `<div class="place-placeholder">${escHtml(game.title)}</div>`}
+      </a>`;
+    row.appendChild(td);
+  });
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────────────
+(async () => {
+  // Restore session if already logged in
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) await onSession(session);
+
+  // Load cool places from DB
+  await loadCoolPlaces();
+})();
 </script>
-</form>
-	</body>
+
+</body>
 </html>
